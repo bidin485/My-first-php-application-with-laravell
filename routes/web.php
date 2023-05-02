@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\HostelRoomController;
 use App\Http\Controllers\HostelRoomTypeController;
 use App\Http\Controllers\ProfileController;
@@ -78,19 +80,34 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('tables', function () {
 		return view('pages.tables');
 	})->name('tables');
+
 	Route::get('notifications', function () {
 		return view('pages.notifications');
 	})->name('notifications');
+
 	Route::get('static-sign-in', function () {
 		return view('pages.static-sign-in');
 	})->name('static-sign-in');
+
 	Route::get('static-sign-up', function () {
 		return view('pages.static-sign-up');
 	})->name('static-sign-up');
+
 	Route::get('user-management', function () {
 		return view('pages.laravel-examples.user-management');
 	})->name('user-management');
+	
 	Route::get('user-profile', function () {
 		return view('pages.laravel-examples.user-profile');
 	})->name('user-profile');
 });
+
+// facilities routes
+Route::get('facilities', [FacilitiesController::class, 'index'])->name('facilities');
+Route::get('facilities.create', [FacilitiesController::class, 'create'])->name('facilities.create');
+Route::get('facilities.show', [FacilitiesController::class, 'show'])->name('facilities.show');
+
+// Expenses routes 
+Route::get('expenses', [ExpensesController::class, 'index'])->name('expenses');
+Route::get('expenses.create', [ExpensesController::class, 'create'])->name('expenses.create');
+Route::get('expenses.show', [ExpensesController::class, 'show'])->name('expenses.show');

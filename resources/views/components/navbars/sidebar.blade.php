@@ -71,7 +71,8 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Facilities</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white">
+                <a class="nav-link text-white {{ $activePage == 'facilities' ? ' active bg-gradient-primary' : '' }}" 
+                    href="{{ route('facilities')}}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">holiday_village</i>
                     </div>
@@ -83,6 +84,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'hostel-expenses' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{route('expenses')}}"
                     >
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">payments</i>
