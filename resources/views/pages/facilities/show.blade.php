@@ -18,38 +18,29 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            {{-- <div class="card-body p-3">
-                                <div class="text-end pt-1">
-                                    <p class="text-2xl mb-0 text-capitalize">Room Number</p>
-                                    <h4 class="mb-0">{{ $hostelRoom->room_number }}</h4>
+                            <div class="card-body p-3">
+                                <div class="text-end pt-1 d-flex justify-content-between align-items-center">
+                                    <p class="text-2xl mb-0 text-capitalize font-weight-bolder">Facility Id</p>
+                                    <h4 class="mb-0">{{ $facility->id }}</h4>
                                 </div>
                                 <hr class="dark horizontal my-0">
                                 <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Floor level</p>
-                                    <p class="text-2xl mb-0">{{ $hostelRoom->floor_level }}</p>
+                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Fcaility Name</p>
+                                    <p class="text-2xl mb-0">{{ $facility->Facility_Name }}</p>
                                 </div>
+                                
+                                
                                 <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Room Type</p>
-                                    <p class="text-2xl mb-0">{{ $hostelRoom->hostelRoomType->room_type }}</p>
+                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Availability</p>
+                                    <p class="text-2xl mb-0">{{ $facility->Availability }}</p>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Price</p>
-                                    <p class="text-2xl mb-0"><span
-                                            class="text-2xl mb-0 text-bg-primary font-weight-bolder">UGX</span>
-                                        {{ $hostelRoom->hostelRoomType->room_price }}</p>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Bed Space</p>
-                                    <p class="text-2xl mb-0">{{ $hostelRoom->bed_space }}</p>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Status</p>
-                                    <p class="text-2xl mb-0">{{ $hostelRoom->status }}</p>
-                                </div>
-                            </div> --}}
 
-                            Show about the facility info here 
-                            
+                                <div class=" pt-2">
+                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder"><u>Facility Description</u></p>
+                                    <p class="text-2xl mb-0 fs-6">{{ $facility->Description }}</p>
+                                </div>
+                            </div> 
+
                         </div>
                     </div>
                 </div>

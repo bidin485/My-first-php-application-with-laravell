@@ -105,7 +105,12 @@ Route::group(['middleware' => 'auth'], function () {
 // facilities routes
 Route::get('facilities', [FacilitiesController::class, 'index'])->name('facilities');
 Route::get('facilities.create', [FacilitiesController::class, 'create'])->name('facilities.create');
-Route::get('facilities.show', [FacilitiesController::class, 'show'])->name('facilities.show');
+Route::get('facilities.show.{id}', [FacilitiesController::class, 'show'])->name('facilities.show');
+Route::get('facilities/{id}/edit', [FacilitiesController::class, 'edit'])->name('facilities.edit');
+Route::post('facilities/store', [FacilitiesController::class, 'store'])->name('facilities.store');
+
+
+// Route::resource('facilities', "FacilitiesController");
 
 // Expenses routes 
 Route::get('expenses', [ExpensesController::class, 'index'])->name('expenses');

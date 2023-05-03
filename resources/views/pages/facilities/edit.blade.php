@@ -20,7 +20,8 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        {{-- <form method='POST' action="{{ route('hostel-room.update', $hostelRoom->id) }}">
+                        {{-- Start of the form is here --}}
+                         <form method='POST' action="{{ route('facilities.update', $facility->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -167,7 +168,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn bg-gradient-dark">Submit</button>
-                        </form> --}}
+                        </form> 
+                        {{-- This is the end of the form --}}
 This is the form part of it
                     </div>
                 </div>

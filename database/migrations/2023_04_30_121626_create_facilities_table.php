@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->String('Facility_Name')->unique();
             $table->longText('Description');
-            $table->String('Availability', 1);
+            $table->String('Availability');
             $table->timestamps();
             
         });
