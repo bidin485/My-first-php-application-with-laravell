@@ -122,10 +122,11 @@ Route::put('facilities/{id}', [FacilitiesController::class, 'update'])->middlewa
 // Expenses routes
 Route::get('expenses', [ExpensesController::class, 'index'])->middleware('auth')->name('expenses');
 Route::get('expenses/create', [ExpensesController::class, 'create'])->middleware('auth')->name('expenses.create');
+Route::post('expenses/create', [ExpensesController::class, 'store'])->middleware('auth');
 Route::get('expenses/show/{id}', [ExpensesController::class, 'show'])->middleware('auth')->name('expenses.show');
+Route::get('expenses/{id}/edit', [ExpensesController::class, 'edit'])->middleware('auth')->name('expenses.edit');
 Route::delete('expenses/{id}', [ExpensesController::class, 'destroy'])->middleware('auth')->name('expenses.destroy');
-
-
+Route::put('expenses/{id}', [ExpensesController::class, 'update'])->middleware('auth')->name('expenses.update');
 
 
 //General Page Routes

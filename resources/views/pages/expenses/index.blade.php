@@ -45,84 +45,66 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Expense Id
-                                            </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Category
+                                                ID
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Description
-                                            </th>
+                                                CATEGORY</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Amount Spent
-                                            </th>
+                                                DESCRIPTION</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Date
+                                                AMOUNT SPENT</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                DATE
                                             </th>
-                                            
+                                            <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
-                                        @foreach ($hostelRooms as $hostelRoom)
+                                    <tbody>
+                                        @foreach ($expenses as $expense)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm">{{ $hostelRoom->room_number }}</p>
+                                                            <p class="mb-0 text-sm">{{ $expense->id }}</p>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="{{ asset($hostelRoom->hostelRoomType->room_type_photo) }}"
-                                                                class="avatar avatar-sm me-3 border-radius-lg"
-                                                                alt="shared-room">
-                                                        </div>
-
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $hostelRoom->floor_level }}</h6>
-
+                                                        <h6 class="mb-0 text-sm">{{ $expense->category }}</h6>
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $hostelRoom->bed_space }}
-                                                    </p>
+                                                <td class="align-middle text-center">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $expense->description }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $hostelRoom->status }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $expense->amount_spent }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $hostelRoom->hostelRoomType->room_type }}</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $hostelRoom->created_at }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $expense->date_of_expenditure }}</span>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a rel="tooltip" class="btn btn-info btn-link"
-                                                        href="{{ route('facilities.show', $hostelRoom->id) }}"
+                                                        href="{{ route('expenses.show', $expense->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">visibility</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href="{{ route('facilities.edit', $hostelRoom->id) }}"
+                                                        href="{{ route('expenses.edit', $expense->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                     <form method="POST"
-                                                        action="{{ route('facilities.destroy', $hostelRoom->id) }}"
+                                                        action="{{ route('expenses.destroy', $expense->id) }}"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @method('DELETE')
                                                         @csrf
@@ -135,9 +117,9 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        @endforeach 
-                                    </tbody>--}}
-                        
+                                        @endforeach
+                                    </tbody>
+
                                 </table>
                             </div>
                         </div>
