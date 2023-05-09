@@ -52,7 +52,7 @@ class HostelRoomSeeder extends Seeder
             'room_number' => 'B042',
             'floor_level' => 'Second Floor',
             'bed_space' => 'None',
-            'status' => 'Occupied',
+            'status' => 'Available',
             'hostel_room_type_id' => $double->id
         ]);
 
@@ -68,7 +68,7 @@ class HostelRoomSeeder extends Seeder
             'room_number' => 'A024',
             'floor_level' => 'Second Floor',
             'bed_space' => 'None',
-            'status' => 'Occupied',
+            'status' => 'Available',
             'hostel_room_type_id' => $shared->id
         ]);
 

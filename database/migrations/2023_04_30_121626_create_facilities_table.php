@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
-            $table->String('Facility_Name')->unique();
+            $table->string('Facility_Name')->unique();
             $table->longText('Description');
-            $table->String('Availability');
+            $table->string('Availability');
+            $table->string('facility_photo', 300);
             $table->timestamps();
-            
+
         });
     }
 

@@ -40,107 +40,118 @@
                         </div>
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
-                                @if(count($facilities)>0)
-                                <table class="table align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                facility Id
-                                            </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Facility Name
-                                            </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Description
-                                            </th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Availability
-                                            </th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Created_at
-                                            </th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($facilities as $facility)
+                                @if (count($facilities) > 0)
+                                    <table class="table align-items-center mb-0">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm">{{ $facility->id }}</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                
-                                                <td>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $facility->Facility_Name }}</h6>
+                                                <th
+                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    ID
+                                                </th>
+                                                <th
+                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    PHOTO
+                                                </th>
+                                                <th
+                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    NAME
+                                                </th>
+                                                <th
+                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    DESCRIPTION
+                                                </th>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    AVAILABILITY
+                                                </th>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    CREATED AT
+                                                </th>
 
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $facility->Description }}
-                                                    </p>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $facility->Availability }}</span>
-                                                </td>
-                                                
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $facility->created_at }}</span>
-                                                </td>
-                                                
-                                                <td class="align-middle">
-                                                    <a rel="tooltip" class="btn btn-info btn-link"
-                                                        href="{{ route('facilities.show', $facility->id) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">visibility</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    {{--<a rel="tooltip" class="btn btn-success btn-link"
-                                                       href="{{ route('facilities.edit', $facility->id) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>--}}
-                                                    {{--<form method="POST"
-                                                        action="{{ route('facilities.destroy', $facility->id) }}"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-link"
-                                                            onclick="return confirm(&quot;Confirm delete?&quot;)"
-                                                            data-original-title="" title="">
-                                                            <i class="material-icons">delete</i>
-                                                            <div class="ripple-container"></div>
-                                                        </button>
-                                                    </form>--}}
-                                                </td>
-                                                
                                             </tr>
-                                        @endforeach 
-                                        
-                                    </tbody>
-                        
-                                </table>
-                                
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($facilities as $facility)
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <p class="mb-0 text-sm">{{ $facility->id }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div>
+                                                                <img src="{{ asset($facility->facility_photo) }}"
+                                                                    class="avatar avatar-sm me-3 border-radius-lg"
+                                                                    alt="shared-room">
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm">{{ $facility->Facility_Name }}</h6>
+
+                                                        </div>
+                                                    </td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        <p class="text-xs text-secondary mb-0">
+                                                            {{ $facility->Description }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <span
+                                                            class="text-secondary text-xs font-weight-bold">{{ $facility->Availability }}</span>
+                                                    </td>
+
+                                                    <td class="align-middle text-center">
+                                                        <span
+                                                            class="text-secondary text-xs font-weight-bold">{{ $facility->created_at }}</span>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <a rel="tooltip" class="btn btn-info btn-link"
+                                                            href="{{ route('facilities.show', $facility->id) }}"
+                                                            data-original-title="" title="">
+                                                            <i class="material-icons">visibility</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                        <a rel="tooltip" class="btn btn-success btn-link"
+                                                            href="{{ route('facilities.edit', $facility->id) }}"
+                                                            data-original-title="" title="">
+                                                            <i class="material-icons">edit</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                        <form method="POST"
+                                                            action="{{ route('facilities.destroy', $facility->id) }}"
+                                                            accept-charset="UTF-8" style="display:inline">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger btn-link"
+                                                                onclick="return confirm(&quot;Confirm delete?&quot;)"
+                                                                data-original-title="" title="">
+                                                                <i class="material-icons">delete</i>
+                                                                <div class="ripple-container"></div>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+
+                                    </table>
                                 @else
-                                <h1>There are currently no facilities available</h1>
+                                    <h1>There are currently no facilities available</h1>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {{ $facilities->links() }}
+            {{-- {{ $facilities->links() }} --}}
         </div>
         <x-footers.auth></x-footers.auth>
         </div>

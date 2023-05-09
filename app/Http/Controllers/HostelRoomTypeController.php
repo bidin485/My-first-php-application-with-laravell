@@ -88,18 +88,22 @@ class HostelRoomTypeController extends Controller
             'category' => 'required|max:255|unique:hostel_room_types,room_type,' . $id,
             'price' => 'required|numeric|',
             'description' => 'required|max:255',
-            'photo' => 'required|image',
+            'photo' => 'sometimes|image',
         ], [
             'photo.image' => 'The file must be an image (jpeg, png, bmp, gif, or svg)',
         ]);
 
-        $fileName = time() . $request->file('photo')->getClientOriginalName();
-        $path = $request->file('photo')->storeAs('images', $fileName, 'public');
-        $attributes['photo'] = '/storage/' . $path;
-
-        $hostelRoomType->room_type = $request->category;
-        $hostelRoomType->room_price = $request->price;
-        $hostelRoomType->room_description = $request->description;
+        if (!isset($attributes['photo'])) {
+            // If the "photo" field is not set, use the existing photo from the database
+            $attributes['photo'] = $hostelRoomType->room_type_photo;
+        } else {
+            $fileName = time() . $request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->storeAs('images', $fileName, 'public');
+            $attributes['photo'] = '/storage/' . $path;
+        }
+        $hostelRoomType->room_type = $attributes['category'];
+        $hostelRoomType->room_price = $attributes['price'];
+        $hostelRoomType->room_description = $attributes['description'];
         $hostelRoomType->room_type_photo = $attributes['photo'];
         $hostelRoomType->save();
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BedController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +21,14 @@ Route::get('/', function () {
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\FacilitiesController;
+use App\Http\Controllers\HostelBookingController;
 use App\Http\Controllers\HostelRoomController;
 use App\Http\Controllers\HostelRoomTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TenantController;
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -75,6 +78,55 @@ Route::get('staff/{id}/edit', [StaffController::class, 'edit'])->middleware('aut
 Route::delete('staff/{id}', [StaffController::class, 'destroy'])->middleware('auth')->name('staff.destroy');
 Route::put('staff/{id}', [StaffController::class, 'update'])->middleware('auth')->name('staff.update');
 
+
+// Tenant Routes
+Route::get('tenant', [TenantController::class, 'index'])->middleware('auth')->name('tenant');
+Route::get('tenant/create', [TenantController::class, 'create'])->middleware('auth')->name('tenant.create');
+Route::post('tenant/create', [TenantController::class, 'store'])->middleware('auth');
+Route::get('tenant/{id}/edit', [TenantController::class, 'edit'])->middleware('auth')->name('tenant.edit');
+Route::delete('tenant/{id}', [TenantController::class, 'destroy'])->middleware('auth')->name('tenant.destroy');
+Route::put('tenant/{id}', [TenantController::class, 'update'])->middleware('auth')->name('tenant.update');
+
+// bed Routes
+Route::get('bed', [BedController::class, 'index'])->middleware('auth')->name('bed');
+Route::get('bed/create', [BedController::class, 'create'])->middleware('auth')->name('bed.create');
+Route::post('bed/create', [BedController::class, 'store'])->middleware('auth');
+Route::get('bed/{id}/edit', [BedController::class, 'edit'])->middleware('auth')->name('bed.edit');
+Route::delete('bed/{id}', [BedController::class, 'destroy'])->middleware('auth')->name('bed.destroy');
+Route::put('bed/{id}', [BedController::class, 'update'])->middleware('auth')->name('bed.update');
+
+
+// hostel_booking Routes
+Route::get('hostel_booking', [HostelBookingController::class, 'index'])->middleware('auth')->name('hostel_booking');
+Route::get('hostel_booking/select-category', [HostelBookingController::class, 'select_category'])->middleware('auth')->name('hostel_booking.select-category');
+Route::get('hostel_booking/{category}/select-room', [HostelBookingController::class, 'select_room'])->middleware('auth')->name('hostel_booking.select-room');
+Route::get('hostel_booking/{category}/select-room/{id}/create', [HostelBookingController::class, 'create'])->middleware('auth')->name('hostel_booking.create');
+Route::post('hostel_booking/{category}/select-room/{id}/create', [HostelBookingController::class, 'store'])->middleware('auth');
+Route::get('hostel_booking/{id}/edit', [HostelBookingController::class, 'edit'])->middleware('auth')->name('hostel_booking.edit');
+Route::delete('hostel_booking/{id}', [HostelBookingController::class, 'destroy'])->middleware('auth')->name('hostel_booking.destroy');
+Route::put('hostel_booking/{id}', [HostelBookingController::class, 'update'])->middleware('auth')->name('hostel_booking.update');
+
+
+// facilities routes
+Route::get('facilities', [FacilitiesController::class, 'index'])->middleware('auth')->name('facilities');
+Route::get('facilities/create', [FacilitiesController::class, 'create'])->middleware('auth')->name('facilities.create');
+Route::post('facilities/create', [FacilitiesController::class, 'store'])->middleware('auth');
+Route::get('facilities/show/{id}', [FacilitiesController::class, 'show'])->middleware('auth')->name('facilities.show');
+Route::get('facilities/{id}/edit', [FacilitiesController::class, 'edit'])->middleware('auth')->name('facilities.edit');
+Route::post('facilities/store', [FacilitiesController::class, 'store'])->middleware('auth')->name('facilities.store');
+Route::delete('facilities/{id}', [FacilitiesController::class, 'destroy'])->middleware('auth')->name('facilities.destroy');
+Route::put('facilities/{id}', [FacilitiesController::class, 'update'])->middleware('auth')->name('facilities.update');
+
+
+// Expenses routes
+Route::get('expenses', [ExpensesController::class, 'index'])->middleware('auth')->name('expenses');
+Route::get('expenses/create', [ExpensesController::class, 'create'])->middleware('auth')->name('expenses.create');
+Route::get('expenses/show/{id}', [ExpensesController::class, 'show'])->middleware('auth')->name('expenses.show');
+Route::delete('expenses/{id}', [ExpensesController::class, 'destroy'])->middleware('auth')->name('expenses.destroy');
+
+
+
+
 //General Page Routes
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('tables', function () {
@@ -96,23 +148,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user-management', function () {
 		return view('pages.laravel-examples.user-management');
 	})->name('user-management');
-	
+
 	Route::get('user-profile', function () {
 		return view('pages.laravel-examples.user-profile');
 	})->name('user-profile');
 });
 
-// facilities routes
-Route::get('facilities', [FacilitiesController::class, 'index'])->name('facilities');
-Route::get('facilities.create', [FacilitiesController::class, 'create'])->name('facilities.create');
-Route::get('facilities.show.{id}', [FacilitiesController::class, 'show'])->name('facilities.show');
-Route::get('facilities/{id}/edit', [FacilitiesController::class, 'edit'])->name('facilities.edit');
-Route::post('facilities/store', [FacilitiesController::class, 'store'])->name('facilities.store');
-
-
-// Route::resource('facilities', "FacilitiesController");
-
-// Expenses routes 
-Route::get('expenses', [ExpensesController::class, 'index'])->name('expenses');
-Route::get('expenses.create', [ExpensesController::class, 'create'])->name('expenses.create');
-Route::get('expenses.show', [ExpensesController::class, 'show'])->name('expenses.show');

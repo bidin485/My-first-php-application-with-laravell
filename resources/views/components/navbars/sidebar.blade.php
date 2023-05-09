@@ -29,8 +29,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-management' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('user-management') }}">
+                <a class="nav-link text-white {{ $activePage == 'tenant' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('tenant') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">hotel</i>
                     </div>
@@ -67,11 +67,20 @@
                     <span class="nav-link-text ms-1">Rooms</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'bed' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('bed') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">house</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Bed</span>
+                </a>
+            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Facilities</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'facilities' ? ' active bg-gradient-primary' : '' }}" 
+                <a class="nav-link text-white {{ $activePage == 'facilities' ? ' active bg-gradient-primary' : '' }}"
                     href="{{ route('facilities')}}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">holiday_village</i>
@@ -93,12 +102,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'hostel-bookings' ? ' active bg-gradient-primary' : '' }} "
-                    >
+                <a class="nav-link text-white {{ $activePage == 'hostel_booking' ? ' active bg-gradient-primary' : '' }} "
+                href="{{ route('hostel_booking') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">money</i>
                     </div>
-                    <span class="nav-link-text ms-1">Hostel Bookings</span>
+                    <span class="nav-link-text ms-1">Hostel Booking</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
