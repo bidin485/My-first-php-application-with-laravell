@@ -42,6 +42,25 @@
 </head>
 
 <body>
+    @if (Session::has('flash_message'))
+        <div class="position-fixed top-1 center z-index-3">
+            <div class="toast fade p-2 bg-white show" role="alert" aria-live="assertive" id="successToast"
+                aria-atomic="true">
+                <div class="toast-header border-0">
+                    <i class="material-icons text-success me-2">
+                        check
+                    </i>
+                    <span class="me-auto font-weight-bold">Elite Hostel</span>
+                    <small class="text-body">Just Now</small>
+                    <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast" aria-label="Close"></i>
+                </div>
+                <hr class="horizontal dark m-0">
+                <div class="toast-body">
+                    {{ Session::get('flash_message') }}
+                </div>
+            </div>
+        </div>
+    @endif
     <div id="fh5co-wrapper">
         <div id="fh5co-page">
             <div id="fh5co-header">
@@ -124,11 +143,12 @@
                                     <div class="desc">
                                         {{-- <h3>{{$room->hostelRoomType->room_type}}</h3> --}}
                                         <h3>{{ $room->room_number }}</h3>
-                                        <h3>{{ $room->hostelRoomType->room_type  }}</h3>
+                                        <h3>{{ $room->hostelRoomType->room_type }}</h3>
                                         <p>{{ $room->floor_level }}</p>
                                         <p>{{ $room->hostelRoomType->room_description }}
                                         </p>
-                                        <p><a href="" class="btn btn-primary btn-luxe-primary">Book Now <i
+                                        <p><a href="{{ route('guestBooking.create', $room->id) }}"
+                                                class="btn btn-primary btn-luxe-primary">Book Now <i
                                                     class="ti-angle-right"></i></a></p>
                                     </div>
                                 </div>

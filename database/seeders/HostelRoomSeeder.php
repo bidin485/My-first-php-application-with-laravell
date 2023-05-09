@@ -65,19 +65,59 @@ class HostelRoomSeeder extends Seeder
         ]);
 
         HostelRoom::create([
-            'room_number' => 'A024',
-            'floor_level' => 'Second Floor',
+            'room_number' => 'D024',
+            'floor_level' => 'Fourth Floor',
             'bed_space' => 'None',
             'status' => 'Available',
             'hostel_room_type_id' => $shared->id
         ]);
 
         HostelRoom::create([
-            'room_number' => 'B805',
-            'floor_level' => 'Second Floor',
+            'room_number' => 'E805',
+            'floor_level' => 'Fifth Floor',
             'bed_space' => '1',
-            'status' => 'Under Renovation',
-            'hostel_room_type_id' => $unassigned->id
+            'status' => 'Available',
+            'hostel_room_type_id' => $single->id
+
+        ]);
+        HostelRoom::create([
+            'room_number' => 'B806',
+            'floor_level' => 'Second Floor',
+            'bed_space' => '2',
+            'status' => 'Available',
+            'hostel_room_type_id' => $double->id
+
+        ]);
+        HostelRoom::create([
+            'room_number' => 'C195',
+            'floor_level' => 'Third Floor',
+            'bed_space' => '1',
+            'status' => 'Available',
+            'hostel_room_type_id' => $shared->id
+
+        ]);
+        HostelRoom::create([
+            'room_number' => 'D803',
+            'floor_level' => 'Fourth Floor',
+            'bed_space' => '1',
+            'status' => 'Available',
+            'hostel_room_type_id' => $single->id
+
+        ]);
+        HostelRoom::create([
+            'room_number' => 'E027',
+            'floor_level' => 'Fifth Floor',
+            'bed_space' => '2',
+            'status' => 'Available',
+            'hostel_room_type_id' => $double->id
+
+        ]);
+        HostelRoom::create([
+            'room_number' => 'E803',
+            'floor_level' => 'First Floor',
+            'bed_space' => '1',
+            'status' => 'Available',
+            'hostel_room_type_id' => $shared->id
 
         ]);
     }
