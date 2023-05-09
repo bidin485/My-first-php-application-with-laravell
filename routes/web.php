@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpensesController;
@@ -24,13 +21,16 @@ use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\HostelBookingController;
 use App\Http\Controllers\HostelRoomController;
 use App\Http\Controllers\HostelRoomTypeController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\GuestController;
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
+Route::get('/landing', [LandingPageController::class, 'index'])->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
@@ -127,6 +127,16 @@ Route::get('expenses/show/{id}', [ExpensesController::class, 'show'])->middlewar
 Route::get('expenses/{id}/edit', [ExpensesController::class, 'edit'])->middleware('auth')->name('expenses.edit');
 Route::delete('expenses/{id}', [ExpensesController::class, 'destroy'])->middleware('auth')->name('expenses.destroy');
 Route::put('expenses/{id}', [ExpensesController::class, 'update'])->middleware('auth')->name('expenses.update');
+
+
+//User Routes
+Route::get('guest', [GuestController::class, 'index'])->name('guest');
+Route::get('guest/create', [GuestController::class, 'create'])->middleware('auth')->name('guest.create');
+Route::get('guest/{id}', [GuestController::class, 'show'])->middleware('auth')->name('guest.show');
+Route::post('guest/create', [GuestController::class, 'store'])->middleware('auth');
+Route::get('guest/{id}/edit', [GuestController::class, 'edit'])->middleware('auth')->name('guest.edit');
+Route::delete('guest/{id}', [GuestController::class, 'destroy'])->middleware('auth')->name('guest.destroy');
+Route::put('guest/{id}', [GuestController::class, 'update'])->middleware('auth')->name('user.update');
 
 
 //General Page Routes
