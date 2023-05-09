@@ -27,17 +27,8 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Room Number</label>
                                     <input type="text" name="room_number" class="form-control border border-2 p-2"
-                                        value="{{ old('bed_number', $hostel_booking->hostelRoom->room_number) }}"
-                                        disabled>
+                                        value="{{ old('room_number', $hostel_booking->hostelRoom->room_number) }}" disabled>
                                     @error('room_number')
-                                        <p class='text-danger inputerror'>{{ $message }} </p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-9">
-                                    <label class="form-label">Bed Number</label>
-                                    <input type="text" name="bed_number" class="form-control border border-2 p-2"
-                                        value='{{ old('bed_number', $hostel_booking->bed->bed_number) }}' disabled>
-                                    @error('bed_number')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>

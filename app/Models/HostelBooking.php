@@ -25,7 +25,7 @@ class HostelBooking extends Model
     }
 
     public function hostelRoom(){
-        return $this->belongsTo(Bed::class);
+        return $this->belongsTo(HostelRoom::class);
     }
 
     use HasFactory;

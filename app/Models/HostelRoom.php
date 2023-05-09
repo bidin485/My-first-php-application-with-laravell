@@ -16,7 +16,7 @@ class HostelRoom extends Model
     }
 
     public function hostelBooking(){
-        return $this->belongsToMany(HostelRoomBooking::class);
+        return $this->hasMany(HostelRoomBooking::class);
     }
 
     use HasFactory;
