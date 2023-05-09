@@ -44,12 +44,12 @@
                                     <thead>
                                         <tr>
                                             <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            ID
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                ID
                                             </th>
                                             <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            TENANT NAME
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                TENANT NAME
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -57,7 +57,7 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                               CHECK-IN-DATE</th>
+                                                CHECK-IN-DATE</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 CHECK-OUT-DATE</th>
@@ -101,7 +101,7 @@
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $item->check_out_date  }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $item->check_out_date }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
@@ -111,20 +111,19 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $item->balance }}</span>
                                                 </td>
-
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $item->tenant->id }}</span>
-                                                </td>
-
                                                 <td class="align-middle">
+                                                    <a rel="tooltip" class="btn btn-info btn-link"
+                                                        href="{{ route('hostel_booking.show', $item->id) }}"
+                                                        data-original-title="" title="">
+                                                        <i class="material-icons">visibility</i>
+                                                        <div class="ripple-container"></div>
+                                                    </a>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href="{{ route('hostel_booking.edit', $item->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
-
                                                     <form method="POST"
                                                         action="{{ route('hostel_booking.destroy', $item->id) }}"
                                                         accept-charset="UTF-8" style="display:inline">

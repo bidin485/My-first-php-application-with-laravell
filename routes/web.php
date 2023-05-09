@@ -99,6 +99,7 @@ Route::put('bed/{id}', [BedController::class, 'update'])->middleware('auth')->na
 // hostel_booking Routes
 Route::get('hostel_booking', [HostelBookingController::class, 'index'])->middleware('auth')->name('hostel_booking');
 Route::get('hostel_booking/select-category', [HostelBookingController::class, 'select_category'])->middleware('auth')->name('hostel_booking.select-category');
+Route::get('hostel_booking/{id}', [HostelBookingController::class, 'show'])->middleware('auth')->name('hostel_booking.show');
 Route::get('hostel_booking/{category}/select-room', [HostelBookingController::class, 'select_room'])->middleware('auth')->name('hostel_booking.select-room');
 Route::get('hostel_booking/{category}/select-room/{id}/create', [HostelBookingController::class, 'create'])->middleware('auth')->name('hostel_booking.create');
 Route::post('hostel_booking/{category}/select-room/{id}/create', [HostelBookingController::class, 'store'])->middleware('auth');

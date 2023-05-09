@@ -84,7 +84,8 @@ class HostelBookingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $hostel_booking = HostelBooking::find($id);
+        return view('pages.hostel_booking.show')->with('hostel_booking', $hostel_booking);
     }
 
     /**
