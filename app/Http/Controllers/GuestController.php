@@ -52,7 +52,7 @@ class GuestController extends Controller
             'bed_number' => 'required|max:255|exists:bed,bed_number',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255|',
-            'email' => 'required|email|max:255|exists:users,email',
+            'email' => 'required|email|max:255|',
             'phone_number' => 'required|max:255|',
             'check_in_date' => 'required|date|max:255',
             'check_out_date' => 'required|date|max:255',

@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="me-3 mt-3 mb-2 text-end">
-                            <a class="btn bg-gradient-dark mb-0" href="{{ route('hostel_booking.select-category') }}"><i
+                            <a class="btn bg-gradient-dark mb-0" href="{{ route('guest-booking.create') }}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                                 Guest Booking</a>
                         </div>
@@ -125,19 +125,19 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     <a rel="tooltip" class="btn btn-info btn-link"
-                                                        href="{{ route('hostel_booking.show', $item->id) }}"
+                                                        href="{{ route('guest-booking.show', $item->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">visibility</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                     <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href="{{ route('hostel_booking.edit', $item->id) }}"
+                                                        href="{{ route('guest-booking.edit', $item->id) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                     <form method="POST"
-                                                        action="{{ route('hostel_booking.destroy', $item->id) }}"
+                                                        action="{{ route('guest-booking.destroy', $item->id) }}"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @method('DELETE')
                                                         @csrf

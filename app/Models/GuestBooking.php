@@ -22,7 +22,15 @@ class GuestBooking extends Model
         //payment method
     ];
     public function user(){
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function hostelRoom(){
+        return $this->belongsTo(HostelRoom::class);
+    }
+
+    public function bed(){
+        return $this->belongsTo(Bed::class);
     }
 
     use HasFactory;

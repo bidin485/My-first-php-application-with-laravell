@@ -25,5 +25,10 @@ class Bed extends Model
         return $this->hasMany(HostelBooking::class);
     }
 
+    public function guestBooking()
+    {
+        return $this->hasOne(GuestBooking::class);
+    }
+
     use HasFactory;
 }

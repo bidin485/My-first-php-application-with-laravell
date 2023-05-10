@@ -52,7 +52,7 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function GuestBooking()
+    public function guestBooking()
     {
         $this->belongsTo(GuestBooking::class);
     }

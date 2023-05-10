@@ -147,18 +147,30 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('expenses/{id}', [ExpensesController::class, 'update'])->name('expenses.update');
 });
 
-//Guest Routes
-Route::get('guest', [GuestController::class, 'index'])->name('guest');
-Route::get('guest/{id}/create', [GuestController::class, 'create'])->middleware('auth')->name('guestBooking.create');
-Route::post('guest/{id}/create', [GuestController::class, 'store'])->middleware('auth')->name('guestBooking.create');
-Route::get('guest/{id}', [GuestController::class, 'show'])->middleware('auth')->name('guest.show');
-Route::post('guest/create', [GuestController::class, 'store'])->middleware('auth');
-Route::get('guest/{id}/edit', [GuestController::class, 'edit'])->middleware('auth')->name('guest.edit');
-Route::delete('guest/{id}', [GuestController::class, 'destroy'])->middleware('auth')->name('guest.destroy');
-Route::put('guest/{id}', [GuestController::class, 'update'])->middleware('auth')->name('user.update');
-
 //Admin Guest routes
-Route::get('guest-booking', [GuestBookingController::class, 'index'])->middleware('auth')->name('guest-booking');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('guest-booking', [GuestBookingController::class, 'index'])->name('guest-booking');
+    Route::get('guest-booking/create', [GuestBookingController::class, 'create'])->name('guest-booking.create');
+    Route::post('guest-booking/create', [GuestBookingController::class, 'store']);
+    Route::get('guest-booking/show/{id}', [GuestBookingController::class, 'show'])->name('guest-booking.show');
+    Route::get('guest-booking/{id}/edit', [GuestBookingController::class, 'edit'])->name('guest-booking.edit');
+    Route::delete('guest-booking/{id}', [GuestBookingController::class, 'destroy'])->name('guest-booking.destroy');
+    Route::put('guest-booking/{id}', [GuestBookingController::class, 'update'])->name('guest-booking.update');
+});
+
+
+
+//Guest Routes
+Route::middleware('auth')->group(function () {
+    Route::get('guest', [GuestController::class, 'index'])->name('guest');
+    Route::get('guest/{id}/create', [GuestController::class, 'create'])->name('guestBooking.create');
+    Route::post('guest/{id}/create', [GuestController::class, 'store'])->name('guestBooking.create');
+    Route::get('guest/{id}', [GuestController::class, 'show'])->name('guest.show');
+    Route::post('guest/create', [GuestController::class, 'store']);
+    Route::get('guest/{id}/edit', [GuestController::class, 'edit'])->name('guest.edit');
+    Route::delete('guest/{id}', [GuestController::class, 'destroy'])->name('guest.destroy');
+    Route::put('guest/{id}', [GuestController::class, 'update'])->name('user.update');
+});
 
 
 //General Page Routes
