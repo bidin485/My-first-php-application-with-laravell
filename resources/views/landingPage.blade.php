@@ -78,11 +78,20 @@
                                     <li>
                                         <a href="{{ url('/sign-in') }}" class="fh5co-sub-ddown">Sign In</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('/sign-in') }}" class="fh5co-sub-ddown">
+                                            <span
+                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
+                                                Out</span></a>
+                                    </li>
                                     <li><a href="services.html">Facilities</a></li>
                                     <li><a href="blog.html">Blog</a></li>
                                     <li><a href="#footer">Contact</a></li>
                                 </ul>
                             </nav>
+                            <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </header>

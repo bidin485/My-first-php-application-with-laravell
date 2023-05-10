@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
          User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@material.com',
-            'password' => ('secret')
+            'password' => ('secret'),
+            'is_admin' => true, // Set the is_admin value to true for the sample admin user
         ]);
 
         $this->call([
