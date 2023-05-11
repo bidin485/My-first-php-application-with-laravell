@@ -24,12 +24,12 @@
                                 </div>
                                 <hr class="dark horizontal my-0">
                                 <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Bed Number</p>
-                                    <p class="text-2xl mb-0">{{ $hostel_booking->bed->bed_number }}</p>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pt-2">
                                     <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Room Type</p>
                                     <p class="text-2xl mb-0">{{ $hostel_booking->hostelRoom->hostelRoomType->room_type }}</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between pt-2">
+                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Bed Space</p>
+                                    <p class="text-2xl mb-0">{{ $hostel_booking->bed_space }}</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between pt-2">
                                     <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Tenant Name</p>

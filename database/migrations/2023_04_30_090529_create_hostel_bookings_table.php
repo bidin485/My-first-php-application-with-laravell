@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('hostel_bookings', function (Blueprint $table) {
             $table->id();
+            $table->integer('bed_space');
             $table->date('check_in_date');
             $table->date('check_out_date');
             $table->integer('amount_paid');
@@ -20,11 +21,9 @@ return new class extends Migration
             //payments of two categories cash,mobile money,card
             $table->unsignedBigInteger('tenant_id');
             $table->unsignedBigInteger('hostel_room_id');
-            $table->unsignedBigInteger('bed_id');
             $table->timestamps();
             $table->index('tenant_id');
             $table->index('hostel_room_id');
-            $table->index('bed_id');
         });
     }
 

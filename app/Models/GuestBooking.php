@@ -12,9 +12,9 @@ class GuestBooking extends Model
         'last_name',
         'phone_number',
         'email',
+        'bed_space',
         'user_id',
         'hostel_room_id',
-        'bed_id',
         'check_in_date',
         'check_out_date',
         'amount_paid',
@@ -27,10 +27,6 @@ class GuestBooking extends Model
 
     public function hostelRoom(){
         return $this->belongsTo(HostelRoom::class);
-    }
-
-    public function bed(){
-        return $this->belongsTo(Bed::class);
     }
 
     use HasFactory;

@@ -67,15 +67,6 @@
                     <span class="nav-link-text ms-1">Rooms</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'bed' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('bed') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">house</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Bed</span>
-                </a>
-            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Facilities</h6>
             </li>
@@ -109,6 +100,8 @@
                     </div>
                     <span class="nav-link-text ms-1">Hostel Booking</span>
                 </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'guest-booking' ? ' active bg-gradient-primary' : '' }} "
                 href="{{ route('guest-booking') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -157,5 +150,5 @@
             </li>
         </ul>
     </div>
-    
+
 </aside>

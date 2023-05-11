@@ -41,25 +41,41 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action="{{ route('guest-booking.create') }}">
+                        <form method='POST' action="{{ route('guest-booking.create', ['category' => $hostelRoom->hostelRoomType->id, 'id' => $hostelRoom->id]) }}">
                             @csrf
                             <div class="row">
-                                <div class="form-inline mb-3 col-md-9">
-                                    <label class="my-1 mr-2">Room Number</label>
-                                    <select class="form-control custom-select border border-2 p-2 my-1 mr-sm-2"
-                                        name="room_number">
-                                            @foreach ($rooms as $room)
-                                                <option>{{ $room->room_number }}</option>
-                                            @endforeach
-                                    </select>
+                                <div class="mb-3 col-md-9">
+                                    <label class="form-label">Room Number</label>
+                                    <input type="text" name="room_number" class="form-control border border-2 p-2"
+                                        value="{{ $hostelRoom->room_number }}" disabled>
+                                    <input type="hidden" name="room_number" value="{{ $hostelRoom->room_number }}">
+
                                     @error('room_number')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-9">
-                                    <label class="form-label">Bed Number</label>
-                                    <input type="text" name="bed_number" class="form-control border border-2 p-2">
-                                    @error('bed_number')
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Bed Space</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                onclick="decrementValue()">
+                                                <span class="material-icons">remove</span>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            name="bed_space" min="1"
+                                            max="{{ $hostelRoom->hostelRoomType->room_capacity }}" value="1"
+                                            id="quantity" style="width:50px;">
+
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                onclick="incrementValue()">
+                                                <span class="material-icons">add</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @error('bed_space')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
@@ -113,8 +129,7 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Amount Paid</label>
                                     <input type="number" name="amount_paid" id="amount_paid"
-                                        class="form-control border border-2 p-2"
-                                        oninput="calculateBalance()">
+                                        class="form-control border border-2 p-2" oninput="calculateBalance()">
                                     @error('amount_paid')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
@@ -129,7 +144,7 @@
                                     @enderror
                                 </div>
                             </div>
-                                <button type="submit" class="btn bg-gradient-dark">Submit</button>
+                            <button type="submit" class="btn bg-gradient-dark">Submit</button>
                         </form>
 
                     </div>
@@ -150,6 +165,21 @@
                     checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
                 });
             </script>
+            <script>
+                function incrementValue() {
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value < script 2 ? value + 1 : 2;
+                    document.getElementById('quantity').value = value;
+                }
+
+                function decrementValue() {
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value > 1 ? value - 1 : 1;
+                    document.getElementById('quantity').value = value;
+                }
+            </>
         @endpush
         </div>
         <x-plugins></x-plugins>

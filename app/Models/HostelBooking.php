@@ -10,11 +10,11 @@ class HostelBooking extends Model
     protected $fillable = [
         'hostel_room_id',
         'tenant_id',
-        'bed_id',
+        'bed_space',
         'check_in_date',
         'check_out_date',
         'amount_paid',
-        'balance'
+        'balance',
         //payment method
     ];
     public function tenant(){

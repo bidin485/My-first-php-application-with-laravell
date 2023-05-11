@@ -27,25 +27,37 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Room Number</label>
                                     <input type="text" name="room_number" class="form-control border border-2 p-2"
-                                        value="{{ old('room_number', $hostel_booking->hostelRoom->room_number) }}" disabled>
+                                        value="{{ old('room_number', $hostel_booking->hostelRoom->room_number) }}"
+                                        disabled>
+                                    <input type="hidden" name="room_number"
+                                        value="{{ old('room_number', $hostel_booking->hostelRoom->room_number) }}">
                                     @error('room_number')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
-                                <div class="form-inline mb-3 col-md-9">
-                                    <label class="my-1 mr-2">Bed Number</label>
-                                    <select class="form-control custom-select border border-2 p-2 my-1 mr-sm-2"
-                                        name="bed_number">
-                                        <option>{{ $hostel_booking->bed->bed_number }}</option>
-                                        @if (count($beds) > 0)
-                                            @foreach ($beds as $bed)
-                                                @if ($bed->bed_number != $hostel_booking->bed->bed_number)
-                                                    <option>{{ $bed->bed_number }}</option>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    @error('bed_number')
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Bed Space</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                onclick="decrementValue()">
+                                                <span class="material-icons">remove</span>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                            name="bed_space" min="1"
+                                            max="{{ $hostel_booking->hostelRoom->room_capacity }}"
+                                            value="{{ old('bed_space', $hostel_booking->bed_space) }}" id="quantity"
+                                            style="width:50px;">
+
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                onclick="incrementValue()">
+                                                <span class="material-icons">add</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @error('bed_space')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
@@ -102,6 +114,34 @@
 
         </div>
         <x-footers.auth></x-footers.auth>
+        @push('js')
+            <script>
+                const checkInDateInput = document.querySelector('#check-in-date');
+                const checkOutDateInput = document.querySelector('#check-out-date');
+
+                checkInDateInput.addEventListener('change', () => {
+                    const checkInDate = new Date(checkInDateInput.value);
+                    const checkOutDate = new Date(checkInDate.getFullYear(), checkInDate.getMonth() + 1, checkInDate
+                        .getDate());
+                    checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
+                });
+            </script>
+            <script>
+                function incrementValue() {
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value < 2 ? value + 1 : 2;
+                    document.getElementById('quantity').value = value;
+                }
+
+                function decrementValue() {
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value > 1 ? value - 1 : 1;
+                    document.getElementById('quantity').value = value;
+                }
+            </script>
+        @endpush
     </div>
     <x-plugins></x-plugins>
 

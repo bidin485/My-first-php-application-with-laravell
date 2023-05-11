@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="me-3 mt-3 mb-2 text-end">
-                            <a class="btn bg-gradient-dark mb-0" href="{{ route('guest-booking.create') }}"><i
+                            <a class="btn bg-gradient-dark mb-0" href="{{ route('guest-booking.select-category') }}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                                 Guest Booking</a>
                         </div>
@@ -58,6 +58,14 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 EMAIL
+                                            </th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                ROOM NUMBER
+                                            </th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                BED SPACE
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -104,6 +112,20 @@
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <p class="mb-0 text-sm">{{ $item->email }}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <p class="mb-0 text-sm">{{ $item->hostelRoom->room_number }}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <p class="mb-0 text-sm">{{ $item->bed_space }}</p>
                                                         </div>
                                                     </div>
                                                 </td>

@@ -53,7 +53,15 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                BED NUMBER
+                                                ROOM NUMBER
+                                            </th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                ROOM TYPE
+                                            </th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                BED SPACE
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -91,7 +99,23 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm">{{ $item->bed->bed_number }}</p>
+                                                            <p class="mb-0 text-sm">{{ $item->hostelRoom->room_number }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <p class="mb-0 text-sm">
+                                                                {{ $item->hostelRoom->hostelRoomType->room_type }}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <p class="mb-0 text-sm">{{ $item->bed_space }}</p>
                                                         </div>
                                                     </div>
                                                 </td>

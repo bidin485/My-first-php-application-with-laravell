@@ -1,7 +1,10 @@
 <?php
+
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\HostelBooking;
+use App\Models\HostelRoom;
 use Illuminate\Support\Facades\DB;
 
 class HostelBookingSeeder extends Seeder
@@ -10,53 +13,46 @@ class HostelBookingSeeder extends Seeder
     {
 
         $tenant1 = DB::table('tenant')
-            ->where('email','john.smith@example.com')
+            ->where('email', 'john.smith@example.com')
             ->select('id')
             ->first();
-        $booking1 = DB::table('hostel_rooms')
-            ->where('room_number', '=', 'A101')
-            ->select('id')
+        $hostelRoom1 = HostelRoom::where('room_number', '=', 'A101')
             ->first();
 
-        $booking2 = DB::table('hostel_rooms')
-            ->where('room_number', '=', 'B042')
-            ->select('id')
-            ->first();
-        $booking3 = DB::table('bed')
-            ->where('bed_number', '=', 'BE1')
-            ->select('id')
-            ->first();
-        $booking4 = DB::table('bed')
-            ->where('bed_number', '=', 'BE2')
-            ->select('id')
+        $hostelRoom2 = HostelRoom::where('room_number', '=', 'B042')
             ->first();
 
-        $data = [
-            [
+        HostelBooking::create([
+            'bed_space' => $hostelRoom1->hostelRoomType->room_capacity,
+            'check_in_date' => '2023-05-02',
+            'check_out_date' => '2023-05-08',
+            'amount_paid' => 150000,
+            'balance' => 500000,
+            'tenant_id' => $tenant1->id,
+            'hostel_room_id' => $hostelRoom1->id,
+        ]);
 
 
-                'check_in_date' => '2023-05-01',
-                'check_out_date' => '2023-05-05',
-                'amount_paid' => 150000,
-                'balance' => 500000,
-                'tenant_id'=>$tenant1->id,
-                'hostel_room_id'=>$booking1->id,
-                'bed_id'=>$booking3->id
-            ],
-            [
+        HostelBooking::create([
+            'bed_space' => $hostelRoom2->hostelRoomType->room_capacity,
+            'check_in_date' => '2023-05-02',
+            'check_out_date' => '2023-05-08',
+            'amount_paid' => 750000,
+            'balance' => 0,
+            'tenant_id' => $tenant1->id,
+            'hostel_room_id' => $hostelRoom2->id,
+        ]);
 
+        $hostelRoom1->bed_space -= $hostelRoom1->hostelRoomType->room_capacity;
+        if ($hostelRoom1->bed_space == 0) {
+            $hostelRoom1->status = 'Unavailable';
+        }
+        $hostelRoom1->save();
 
-                'check_in_date' => '2023-05-02',
-                'check_out_date' => '2023-05-08',
-                'amount_paid' => 750000,
-                'balance' => 0,
-                'tenant_id'=>$tenant1->id,
-                'hostel_room_id'=>$booking2->id,
-                'bed_id'=>$booking4->id
-            ],
-        ];
-
-        HostelBooking::insert($data);
+        $hostelRoom2->bed_space -= $hostelRoom2->hostelRoomType->room_capacity;
+        if ($hostelRoom2->bed_space == 0) {
+            $hostelRoom2->status = 'Unavailable';
+        }
+        $hostelRoom2->save();
     }
 }
-

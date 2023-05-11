@@ -17,19 +17,18 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('email');
+            $table->integer('bed_space');
             $table->date('check_in_date');
             $table->date('check_out_date');
             $table->integer('amount_paid');
             $table->integer('balance');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('hostel_room_id');
-            $table->unsignedBigInteger('bed_id');
             $table->timestamps();
 
             
             $table->index('user_id');
             $table->index('hostel_room_id');
-            $table->index('bed_id');
         });
     }
 

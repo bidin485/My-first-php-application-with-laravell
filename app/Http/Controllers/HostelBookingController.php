@@ -25,17 +25,12 @@ class HostelBookingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($category, $id)
+    public function create(string $category, string $id)
     {
         $hostelRoom = HostelRoom::find($id);
 
-        $beds = DB::table('bed')
-            ->where('hostel_room_id', $id)
-            ->where('availability', 'vacant')
-            ->select('bed_number')
-            ->get();
 
-        return view('pages.hostel_booking.create', compact('hostelRoom', 'beds'));
+        return view('pages.hostel_booking.create', compact('hostelRoom'));
     }
 
     /**
@@ -44,37 +39,43 @@ class HostelBookingController extends Controller
     public function store(Request $request)
     {
 
+        $bedSpace = intval($request->bed_space);
+
         $attributes = request()->validate([
-            'bed_number' => 'required|max:255|exists:bed,bed_number',
             'email' => 'required|email|max:255|exists:tenant,email',
+            'bed_space' => 'required|numeric|',
             'check_in_date' => 'required|date|max:255',
             'check_out_date' => 'required|date|max:255',
-            'amount_paid' => 'required|numeric|max:99999999.99',
-            'balance' => 'required|numeric|max:99999999.99'
+            'amount_paid' => 'required|numeric|',
+            'balance' => 'required|numeric|'
         ]);
 
         $tenant = DB::table('tenant')
             ->where('email', $request->email)
             ->select('id')
             ->first();
-        $bed = DB::table('bed')
-            ->where('bed_number', '=', $request->bed_number)
-            ->select('*')
+
+        $hostelRoom = HostelRoom::where('room_number', $request->room_number)
             ->first();
 
+
         HostelBooking::create([
+            'bed_space' => $bedSpace,
             'check_in_date' => $attributes['check_in_date'],
             'check_out_date' => $attributes['check_out_date'],
             'amount_paid' => $attributes['amount_paid'],
             'balance' => $attributes['balance'],
             'tenant_id' => $tenant->id,
-            'hostel_room_id' => $bed->hostel_room_id,
-            'bed_id' => $bed->id
+            'hostel_room_id' => $hostelRoom->id
         ]);
 
-        // update the availability of the bed to "occupied"
-        Bed::where('id', $bed->id)
-            ->update(['availability' => 'occupied']);
+
+        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity - $bedSpace;
+        if ($hostelRoom->bed_space == 0) {
+            $hostelRoom->status = 'Unavailable';
+        }
+        $hostelRoom->save();
+
 
         return redirect('hostel_booking')->with('flash_message', 'Hostel Booking Added!');
     }
@@ -95,13 +96,7 @@ class HostelBookingController extends Controller
     {
         $hostel_booking = HostelBooking::find($id);
 
-        $beds = DB::table('bed')
-            ->where('hostel_room_id', $hostel_booking->hostel_room_id)
-            ->where('availability', 'vacant')
-            ->select('bed_number')
-            ->get();
-
-        return view('pages.hostel_booking.edit', compact('hostel_booking', 'beds'));
+        return view('pages.hostel_booking.edit', compact('hostel_booking'));
     }
 
     /**
@@ -111,14 +106,15 @@ class HostelBookingController extends Controller
     {
 
         $hostel_booking = HostelBooking::find($id);
+        $bedSpace = intval($request->bed_space);
 
         $attributes = request()->validate([
-            'bed_number' => 'required|max:255|exists:bed,bed_number',
             'email' => 'required|email|max:255|exists:tenant,email',
+            'bed_space' => 'required|numeric|',
             'check_in_date' => 'required|date|max:255',
             'check_out_date' => 'required|date|max:255',
-            'amount_paid' => 'required|numeric|max:99999999.99',
-            'balance' => 'required|numeric|max:99999999.99'
+            'amount_paid' => 'required|numeric|',
+            'balance' => 'required|numeric|'
         ]);
 
         $tenant = DB::table('tenant')
@@ -126,19 +122,25 @@ class HostelBookingController extends Controller
             ->select('id')
             ->first();
 
-        $bed = DB::table('bed')
-            ->where('bed_number', '=', $request->bed_number)
-            ->select('*')
+        $hostelRoom = HostelRoom::where('room_number', $request->room_number)
             ->first();
 
+        $hostel_booking->bed_space = $bedSpace;
         $hostel_booking->check_in_date = $request->check_in_date;
         $hostel_booking->check_out_date = $request->check_out_date;
         $hostel_booking->amount_paid = $request->amount_paid;
         $hostel_booking->balance = $request->balance;
         $hostel_booking->tenant_id = $tenant->id;
-        $hostel_booking->hostel_room_id = $bed->hostel_room_id;
-        $hostel_booking->bed_id = $bed->id;
+        $hostel_booking->hostel_room_id = $hostelRoom->id;
         $hostel_booking->save();
+
+        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity - $bedSpace;
+        if ($hostelRoom->bed_space == 0) {
+            $hostelRoom->status = 'Unavailable';
+        } else {
+            $hostelRoom->status = 'Available';
+        }
+        $hostelRoom->save();
 
         return redirect('hostel_booking')->with('flash_message', 'HostelBooking Updated');
     }
@@ -148,7 +150,15 @@ class HostelBookingController extends Controller
      */
     public function destroy(string $id)
     {
+        $hostel_booking = HostelBooking::find($id);
+        $hostelRoom = HostelRoom::where('room_number', $hostel_booking->hostelRoom->room_number)
+            ->first();
+        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity;
+        $hostelRoom->status = 'Available';
+        $hostelRoom->save();
+
         HostelBooking::destroy($id);
+
         return redirect('hostel_booking')->with('flash_message', 'HostelBooking deleted!');
     }
 
@@ -176,10 +186,4 @@ class HostelBookingController extends Controller
         return view('pages.hostel_booking.select-room', compact('hostelRoomType', 'hostelRooms'));
     }
 
-
-    public function booking_category_create(string $category)
-    {
-        $hostelRoomTypes = HostelRoomType::all();
-        return view('pages.hostel_booking.category-create-index')->with('hostelRoomTypes', $hostelRoomTypes);
-    }
 }

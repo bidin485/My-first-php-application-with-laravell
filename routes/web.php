@@ -101,15 +101,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('tenant/{id}', [TenantController::class, 'update'])->name('tenant.update');
 });
 
-// bed Routes
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('bed', [BedController::class, 'index'])->name('bed');
-    Route::get('bed/create', [BedController::class, 'create'])->name('bed.create');
-    Route::post('bed/create', [BedController::class, 'store']);
-    Route::get('bed/{id}/edit', [BedController::class, 'edit'])->name('bed.edit');
-    Route::delete('bed/{id}', [BedController::class, 'destroy'])->name('bed.destroy');
-    Route::put('bed/{id}', [BedController::class, 'update'])->name('bed.update');
-});
 
 // hostel_booking Routes
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -150,8 +141,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 //Admin Guest routes
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('guest-booking', [GuestBookingController::class, 'index'])->name('guest-booking');
-    Route::get('guest-booking/create', [GuestBookingController::class, 'create'])->name('guest-booking.create');
-    Route::post('guest-booking/create', [GuestBookingController::class, 'store']);
+    Route::get('guest-booking/select-category', [GuestBookingController::class, 'select_category'])->name('guest-booking.select-category');
+    Route::get('guest-booking/{category}/select-room', [GuestBookingController::class, 'select_room'])->name('guest-booking.select-room');
+    Route::get('guest-booking/{category}/select-room/{id}/create', [GuestBookingController::class, 'create'])->name('guest-booking.create');
+    Route::post('guest-booking/{category}/select-room/{id}/create', [GuestBookingController::class, 'store']);
     Route::get('guest-booking/show/{id}', [GuestBookingController::class, 'show'])->name('guest-booking.show');
     Route::get('guest-booking/{id}/edit', [GuestBookingController::class, 'edit'])->name('guest-booking.edit');
     Route::delete('guest-booking/{id}', [GuestBookingController::class, 'destroy'])->name('guest-booking.destroy');
