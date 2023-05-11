@@ -72,26 +72,60 @@
                             <nav id="fh5co-menu-wrap" role="navigation">
                                 <ul class="sf-menu" id="fh5co-primary-menu">
                                     <li><a class="active" href="{{ url('/landing') }}">Home</a></li>
-                                    <li>
-                                        <a href="{{ url('/sign-up') }}" class="fh5co-sub-ddown">Sign Up</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/sign-in') }}" class="fh5co-sub-ddown">Sign In</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/sign-in') }}" class="fh5co-sub-ddown">
-                                            <span
-                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
-                                                Out</span></a>
-                                    </li>
                                     <li><a href="services.html">Facilities</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
                                     <li><a href="#footer">Contact</a></li>
+                                    @auth
+                                        <li><a href={{ route('guestBookings') }}>View Bookings</a></li>
+                                    @endauth
+                                    @auth
+                                        @if (auth()->user()->is_admin)
+                                            <li>
+                                                <a href="" class="fh5co-sub-ddown">Admin Actions</a>
+                                                <ul class="fh5co-sub-menu">
+                                                    <li><a href="{{ route('hostel-room-categories') }}">Go to Dashboard</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="fh5co-sub-ddown">
+                                                            <span
+                                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
+                                                                Out</span>
+                                                        </a>
+                                                        <form method="POST" action="{{ route('logout') }}"
+                                                            id="logout-form" style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        @else
+                                            <li><a href="" class="fh5co-sub-ddown">Guest Actions</a>
+                                                <ul class="fh5co-sub-menu">
+                                                    <li>
+                                                        <a href="#" class="fh5co-sub-ddown">
+                                                            <span
+                                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
+                                                                Out</span>
+                                                        </a>
+                                                    </li>
+                                                    <form method="POST" action="{{ route('logout') }}" id="logout-form"
+                                                        style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @else
+                                        <li><a href="" class="fh5co-sub-ddown">Sign In / Sign Up</a>
+                                            <ul class="fh5co-sub-menu">
+                                                <li><a href="{{ url('/sign-in') }}">Sign In</a></li>
+                                                <li>
+                                                    <a href="{{ url('/sign-up') }}" class="fh5co-sub-ddown">Sign Up</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </nav>
-                            <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
-                                @csrf
-                            </form>
                         </div>
                     </div>
                 </header>

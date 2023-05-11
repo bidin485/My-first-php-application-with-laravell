@@ -97,9 +97,14 @@ class GuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function getBookings()
     {
-        //
+        $user = request()->user();
+
+        $bookings = GuestBooking::where('user_id', $user->id)
+                ->get();
+
+        return view('guest.getBookings', compact('bookings'));
     }
 
     /**
@@ -115,6 +120,7 @@ class GuestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        GuestBooking::destroy($id);
+        return redirect('guest/bookings')->with('flash_message', 'Guest Booking canceled!');
     }
 }

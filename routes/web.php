@@ -165,11 +165,8 @@ Route::middleware('auth')->group(function () {
     Route::get('guest', [GuestController::class, 'index'])->name('guest');
     Route::get('guest/{id}/create', [GuestController::class, 'create'])->name('guestBooking.create');
     Route::post('guest/{id}/create', [GuestController::class, 'store'])->name('guestBooking.create');
-    Route::get('guest/{id}', [GuestController::class, 'show'])->name('guest.show');
-    Route::post('guest/create', [GuestController::class, 'store']);
-    Route::get('guest/{id}/edit', [GuestController::class, 'edit'])->name('guest.edit');
-    Route::delete('guest/{id}', [GuestController::class, 'destroy'])->name('guest.destroy');
-    Route::put('guest/{id}', [GuestController::class, 'update'])->name('user.update');
+    Route::get('guest/bookings', [GuestController::class, 'getBookings'])->name('guestBookings');
+    Route::delete('guest/bookings/{id}', [GuestController::class, 'destroy'])->name('guestBookings.destroy');
 });
 
 
