@@ -41,7 +41,8 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action="{{ route('guest-booking.create', ['category' => $hostelRoom->hostelRoomType->id, 'id' => $hostelRoom->id]) }}">
+                        <form method='POST'
+                            action="{{ route('guest-booking.create', ['category' => $hostelRoom->hostelRoomType->id, 'id' => $hostelRoom->id]) }}">
                             @csrf
                             <div class="row">
                                 <div class="mb-3 col-md-9">
@@ -119,8 +120,8 @@
 
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Check Out Date</label>
-                                    <input type="date" name="check_out_date" class="form-control border border-2 p-2"
-                                        id="check-out-date">
+                                    <input type="date" name="check_out_date"
+                                        class="form-control border border-2 p-2" id="check-out-date">
                                     @error('check_out_date')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
@@ -155,21 +156,10 @@
         <x-footers.auth></x-footers.auth>
         @push('js')
             <script>
-                const checkInDateInput = document.querySelector('#check-in-date');
-                const checkOutDateInput = document.querySelector('#check-out-date');
-
-                checkInDateInput.addEventListener('change', () => {
-                    const checkInDate = new Date(checkInDateInput.value);
-                    const checkOutDate = new Date(checkInDate.getFullYear(), checkInDate.getMonth() + 1, checkInDate
-                        .getDate());
-                    checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
-                });
-            </script>
-            <script>
                 function incrementValue() {
                     var value = parseInt(document.getElementById('quantity').value, 10);
                     value = isNaN(value) ? 1 : value;
-                    value = value < script 2 ? value + 1 : 2;
+                    value = value < 2 ? value + 1 : 2;
                     document.getElementById('quantity').value = value;
                 }
 
@@ -179,7 +169,25 @@
                     value = value > 1 ? value - 1 : 1;
                     document.getElementById('quantity').value = value;
                 }
-            </>
+
+                //Update the dates
+                const checkInDateInput = document.querySelector('#check-in-date');
+                const checkOutDateInput = document.querySelector('#check-out-date');
+
+                checkInDateInput.addEventListener('change', () => {
+                    const checkInDate = new Date(checkInDateInput.value);
+                    const checkOutDate = new Date(checkInDate.getFullYear(), checkInDate.getMonth() + 1, checkInDate
+                        .getDate());
+                    checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
+                });
+
+                function calculateBalance() {
+                    const amountPaid = document.getElementById("amount_paid").value;
+                    const maxAmount = {{ $hostelRoom->hostelRoomType->room_price }};
+                    const balance = maxAmount - amountPaid;
+                    document.getElementById("balance").value = balance;
+                }
+            </script>
         @endpush
         </div>
         <x-plugins></x-plugins>

@@ -158,6 +158,7 @@ Route::middleware('auth')->group(function () {
     Route::get('guest', [GuestController::class, 'index'])->name('guest');
     Route::get('guest/{id}/create', [GuestController::class, 'create'])->name('guestBooking.create');
     Route::post('guest/{id}/create', [GuestController::class, 'store'])->name('guestBooking.create');
+    Route::get('guest/booking/{id}', [GuestController::class, 'show'])->name('guestBooking.show');
     Route::get('guest/bookings', [GuestController::class, 'getBookings'])->name('guestBookings');
     Route::delete('guest/bookings/{id}', [GuestController::class, 'destroy'])->name('guestBookings.destroy');
 });

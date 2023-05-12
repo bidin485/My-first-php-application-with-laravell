@@ -7,10 +7,12 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets') }}/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{ asset('assets') }}/img/favicon.png">
     <title>
-        Hostel Management System
+        Ideal Hostel
     </title>
 
     <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Dropdown Menu -->
     <link rel="stylesheet" href="{{ asset('assets') }}/landing_page/css/superfish.css">
     <!-- Owl Slider -->
@@ -36,6 +38,7 @@
     <!-- CSS Files -->
     {{-- <link id="pagestyle" href="{{ asset('assets') }}/css/material-dashboard.css?v=3.0.0" rel="stylesheet" /> --}}
 
+
     <!-- Modernizr JS -->
     <script src="{{ asset('assets') }}/landing_page/js/modernizr-2.6.2.min.js"></script>
 
@@ -43,20 +46,15 @@
 
 <body>
     @if (Session::has('flash_message'))
-        <div class="position-fixed top-1 center z-index-3">
-            <div class="toast fade p-2 bg-white show" role="alert" aria-live="assertive" id="successToast"
-                aria-atomic="true">
-                <div class="toast-header border-0">
-                    <i class="material-icons text-success me-2">
-                        check
-                    </i>
-                    <span class="me-auto font-weight-bold">Elite Hostel</span>
-                    <small class="text-body">Just Now</small>
-                    <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast" aria-label="Close"></i>
-                </div>
-                <hr class="horizontal dark m-0">
-                <div class="toast-body">
-                    {{ Session::get('flash_message') }}
+        <div class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 11">
+            <div id="successToast" class="toast align-items-center text-white bg-success border-0 show" role="alert"
+                aria-live="assertive" aria-atomic="true" style="min-height: 60px">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ Session::get('flash_message') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-dismiss="toast"
+                        aria-label="Close"></button>
                 </div>
             </div>
         </div>
@@ -68,22 +66,27 @@
                     <div class="container">
                         <div class="nav-header">
                             <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-                            <h1 id="fh5co-logo"><a href="index.html">Hostel</a></h1>
+                            @if (auth()->check())
+                                <h1 id="fh5co-logo"><a href="{{ url('/guest') }}">Ideal Hostel</a></h1>
+                            @else
+                                <h1 id="fh5co-logo"><a href="{{ url('/home') }}">Ideal Hostel</a></h1>
+                            @endif
                             <nav id="fh5co-menu-wrap" role="navigation">
                                 <ul class="sf-menu" id="fh5co-primary-menu">
-                                    <li><a class="active" href="{{ url('/landing') }}">Home</a></li>
-                                    <li><a href="services.html">Facilities</a></li>
-                                    <li><a href="#footer">Contact</a></li>
-                                    @auth
+                                    @if (auth()->check())
+                                        <li><a class="active" href="{{ url('/guest') }}">Home</a></li>
                                         <li><a href={{ route('guestBookings') }}>View Bookings</a></li>
-                                    @endauth
-                                    @auth
+                                    @else
+                                        <li><a class="active" href="{{ url('/home') }}">Home</a></li>
+                                    @endif
+
+                                    @if (auth()->check())
                                         @if (auth()->user()->is_admin)
                                             <li>
                                                 <a href="" class="fh5co-sub-ddown">Admin Actions</a>
                                                 <ul class="fh5co-sub-menu">
-                                                    <li><a href="{{ route('hostel-room-categories') }}">Go to Dashboard</a>
-                                                    </li>
+                                                    <li><a href="{{ route('hostel-room-categories') }}">Go to
+                                                            Dashboard</a></li>
                                                     <li>
                                                         <a href="#" class="fh5co-sub-ddown">
                                                             <span
@@ -106,11 +109,11 @@
                                                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
                                                                 Out</span>
                                                         </a>
+                                                        <form method="POST" action="{{ route('logout') }}"
+                                                            id="logout-form" style="display: none;">
+                                                            @csrf
+                                                        </form>
                                                     </li>
-                                                    <form method="POST" action="{{ route('logout') }}" id="logout-form"
-                                                        style="display: none;">
-                                                        @csrf
-                                                    </form>
                                                 </ul>
                                             </li>
                                         @endif
@@ -123,7 +126,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                    @endauth
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -146,9 +149,6 @@
                                                     <p><span>{{ $category->room_type }}</span></p>
                                                     <p>UGX <span>{{ $category->room_price }}</span></p>
                                                     <h2>{{ $category->room_description }}</h2>
-                                                    <p>
-                                                        <a href="#" class="btn btn-primary btn-lg">Book Now</a>
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,7 +192,8 @@
                                         </p>
                                         <p><a href="{{ route('guestBooking.create', $room->id) }}"
                                                 class="btn btn-primary btn-luxe-primary">Book Now <i
-                                                    class="ti-angle-right"></i></a></p>
+                                                    class="ti-angle-right"></i></a>
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach
@@ -259,7 +260,7 @@
             </div>
         </div>
 
-        <div id="testimonial">
+        <div id="testimonial" style="background-color: #434A50;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -383,6 +384,17 @@
     <script src="{{ asset('assets') }}/landing_page/js/jquery.flexslider-min.js"></script>
 
     <script src="{{ asset('assets') }}/landing_page/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script>
+        // get the toast element by its id
+        const toast = document.querySelector('#successToast');
+        // hide the toast after 5 seconds (5000 milliseconds)
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 5000);
+    </script>
 
 </body>
 
