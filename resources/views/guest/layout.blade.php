@@ -49,7 +49,7 @@
         <div id="fh5co-page">
 
             @yield('content')
-            {{-- @yield('footer') --}}
+
         </div>
         <!-- END fh5co-page -->
 

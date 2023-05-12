@@ -135,6 +135,6 @@ class GuestController extends Controller
 
         GuestBooking::destroy($id);
 
-        return redirect('guest/bookings')->with('flash_message', 'Guest Booking canceled!');
+        return redirect('guest/bookings')->with('flash_message', 'Booking canceled!');
     }
 }
