@@ -41,15 +41,14 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action="{{ route('guest-booking.update', $booking->id ) }}">
+                        <form method='POST' action="{{ route('guest-booking.update', $booking->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Room Number</label>
                                     <input type="text" name="room_number" class="form-control border border-2 p-2"
-                                        value="{{ old('room_number', $booking->hostelRoom->room_number) }}"
-                                        disabled>
+                                        value="{{ old('room_number', $booking->hostelRoom->room_number) }}" disabled>
                                     <input type="hidden" name="room_number"
                                         value="{{ old('room_number', $booking->hostelRoom->room_number) }}">
                                     @error('room_number')
@@ -67,7 +66,7 @@
                                         </div>
                                         <input type="text" class="form-control form-control-sm text-center"
                                             name="bed_space" min="1"
-                                            max="{{ $booking->hostelRoom->room_capacity }}"
+                                            max="{{ $booking->hostelRoom->hostelRoomType->room_capacity }}"
                                             value="{{ old('bed_space', $booking->bed_space) }}" id="quantity"
                                             style="width:50px;">
 
@@ -118,7 +117,8 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Check In Date</label>
                                     <input type="date" name="check_in_date" class="form-control border border-2 p-2"
-                                        id="check-in-date" value="{{ old('check_in_date', $booking->check_in_date) }}">
+                                        id="check-in-date"
+                                        value="{{ old('check_in_date', $booking->check_in_date) }}">
                                     @error('check_in_date')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
@@ -126,8 +126,8 @@
 
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Check Out Date</label>
-                                    <input type="date" name="check_out_date" class="form-control border border-2 p-2"
-                                        id="check-out-date"
+                                    <input type="date" name="check_out_date"
+                                        class="form-control border border-2 p-2" id="check-out-date"
                                         value="{{ old('check_out_date', $booking->check_out_date) }}">
                                     @error('check_out_date')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
@@ -137,6 +137,7 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Amount Paid</label>
                                     <input type="number" name="amount_paid" id="amount_paid"
+                                        placeholder="max amount: {{ $hostel_booking->hostelRoom->hostelRoomType->room_price }}"
                                         class="form-control border border-2 p-2" oninput="calculateBalance()"
                                         value="{{ old('amount_paid', $booking->amount_paid) }}">
                                     @error('amount_paid')
@@ -147,6 +148,9 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Balance</label>
                                     <input type="number" name="balance" id="balance"
+                                        class="form-control border border-2 p-2"
+                                        value="{{ old('balance', $booking->balance) }}" disabled>
+                                    <input type="hidden" name="balance" id="balance2"
                                         class="form-control border border-2 p-2"
                                         value="{{ old('balance', $booking->balance) }}">
                                     @error('balance')
@@ -165,6 +169,21 @@
         <x-footers.auth></x-footers.auth>
         @push('js')
             <script>
+                function incrementValue() {
+                    var currentBedSpace = parseInt("{{ $booking->bed_space }}", 10); // Get the current bed space value
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value < currentBedSpace ? value + 1 : currentBedSpace; // Only increment up to current bed space value
+                    document.getElementById('quantity').value = value;
+                }
+
+                function decrementValue() {
+                    var value = parseInt(document.getElementById('quantity').value, 10);
+                    value = isNaN(value) ? 1 : value;
+                    value = value > 1 ? value - 1 : 1;
+                    document.getElementById('quantity').value = value;
+                }
+
                 const checkInDateInput = document.querySelector('#check-in-date');
                 const checkOutDateInput = document.querySelector('#check-out-date');
 
@@ -174,20 +193,13 @@
                         .getDate());
                     checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
                 });
-            </script>
-            <script>
-                function incrementValue() {
-                    var value = parseInt(document.getElementById('quantity').value, 10);
-                    value = isNaN(value) ? 1 : value;
-                    value = value < 2 ? value + 1 : 2;
-                    document.getElementById('quantity').value = value;
-                }
 
-                function decrementValue() {
-                    var value = parseInt(document.getElementById('quantity').value, 10);
-                    value = isNaN(value) ? 1 : value;
-                    value = value > 1 ? value - 1 : 1;
-                    document.getElementById('quantity').value = value;
+                function calculateBalance() {
+                    const amountPaid = document.getElementById("amount_paid").value;
+                    const maxAmount = {{ $booking->hostelRoom->hostelRoomType->room_price }};
+                    const balance = maxAmount - amountPaid;
+                    document.getElementById("balance").value = balance;
+                    document.getElementById("balance2").value = balance;
                 }
             </script>
         @endpush

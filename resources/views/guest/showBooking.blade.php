@@ -23,6 +23,17 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-6">
+                                <p class="font-weight-bold mb-0 text-center">Room Number:</p>
+                                <p class="text-muted text-center">{{ $booking->hostelRoom->room_number }}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold mb-0 text-center">Room Type:</p>
+                                <p class="text-muted text-center">{{ $booking->hostelRoom->hostelRoomType->room_type }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <p class="font-weight-bold mb-0 text-center">Name:</p>
                                 <p class="text-muted text-center">{{ $booking->first_name }}
                                     {{ $booking->last_name }}</p>
@@ -61,4 +72,3 @@
     </div>
     @include('guest.footer')
 @endsection
-

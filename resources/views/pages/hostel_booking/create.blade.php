@@ -67,9 +67,8 @@
                                             </button>
                                         </div>
                                         <input type="text" class="form-control form-control-sm text-center"
-                                            name="bed_space" min="1"
-                                            max="{{ $hostelRoom->hostelRoomType->room_capacity }}" value="1"
-                                            id="quantity" style="width:50px;">
+                                            name="bed_space" value="{{ $hostelRoom->bed_space }}" id="quantity"
+                                            style="width:50px;">
 
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-outline-secondary"
@@ -110,14 +109,20 @@
 
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Amount Paid</label>
-                                    <input type="number" name="amount_paid" class="form-control border border-2 p-2">
+                                    <input type="number" name="amount_paid" class="form-control border border-2 p-2"
+                                        min="0" max="{{ $hostelRoom->hostelRoomType->room_price }}"
+                                        placeholder="max value: {{ $hostelRoom->hostelRoomType->room_price }}"
+                                        id="amount_paid" oninput="calculateBalance()">
                                     @error('amount_paid')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Balance</label>
-                                    <input type="number" name="balance" class="form-control border border-2 p-2">
+                                    <input type="number" name="balance" class="form-control border border-2 p-2"
+                                        id="balance" disabled>
+                                    <input type="hidden" name="balance" class="form-control border border-2 p-2"
+                                        id="balance2">
                                     @error('balance')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                     @enderror
@@ -135,9 +140,10 @@
         @push('js')
             <script>
                 function incrementValue() {
+                    var currentBedSpace = parseInt("{{ $hostelRoom->bed_space }}", 10); // Get the current bed space value
                     var value = parseInt(document.getElementById('quantity').value, 10);
                     value = isNaN(value) ? 1 : value;
-                    value = value < 2 ? value + 1 : 2;
+                    value = value < currentBedSpace ? value + 1 : currentBedSpace; // Only increment up to current bed space value
                     document.getElementById('quantity').value = value;
                 }
 
@@ -164,6 +170,7 @@
                     const maxAmount = {{ $hostelRoom->hostelRoomType->room_price }};
                     const balance = maxAmount - amountPaid;
                     document.getElementById("balance").value = balance;
+                    document.getElementById("balance2").value = balance;
                 }
             </script>
         @endpush

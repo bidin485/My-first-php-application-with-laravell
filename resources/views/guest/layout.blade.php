@@ -36,7 +36,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('assets') }}/landing_page/css/style.css">
     <!-- CSS Files -->
-    {{-- <link id="pagestyle" href="{{ asset('assets') }}/css/material-dashboard.css?v=3.0.0" rel="stylesheet" /> --}}
+    <link href="{{ asset('assets') }}/css/styles.css" rel="stylesheet">
 
 
     <!-- Modernizr JS -->

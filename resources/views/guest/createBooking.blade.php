@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="bed_space">Bed Space</label>
                                 <input type="number" name="bed_space" class="form-control" min="1"
-                                    max="{{ $hostelRoom->hostelRoomType->room_capacity }}" value="1">
+                                    max="{{ $hostelRoom->bed_space  }}" value="1">
                             </div>
                             @error('bed_space')
                                 <p class='text-danger inputerror'>{{ $message }} </p>
@@ -73,7 +73,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="check_out_date">Check Out Date</label>
-                                <input type="date" name="check_out_date" class="form-control" id="check-out-date">
+                                <input type="date" name="check_out_date" class="form-control" id="check-out-date" disabled>
+                                <input type="hidden" name="check_out_date" class="form-control" id="check-out-date2">
                                 @error('check_out_date')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
                                 @enderror
@@ -115,12 +116,14 @@
         //Update the dates
         const checkInDateInput = document.querySelector('#check-in-date');
         const checkOutDateInput = document.querySelector('#check-out-date');
+        const checkOutDateInput2 = document.querySelector('#check-out-date2');
 
         checkInDateInput.addEventListener('change', () => {
             const checkInDate = new Date(checkInDateInput.value);
-            const checkOutDate = new Date(checkInDate.getFullYear(), checkInDate.getMonth() + 1, checkInDate
+            const checkOutDate = new Date(checkInDate.getFullYear(), checkInDate.getMonth() + 3, checkInDate
                 .getDate());
             checkOutDateInput.value = checkOutDate.toISOString().split('T')[0];
+            checkOutDateInput2.value = checkOutDate.toISOString().split('T')[0];
         });
 
         function calculateBalance() {

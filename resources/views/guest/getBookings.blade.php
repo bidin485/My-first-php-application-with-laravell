@@ -18,6 +18,8 @@
                         <thead>
                             <tr>
                                 <th>Booking ID</th>
+                                <th>Room Number</th>
+                                <th>Room Type</th>
                                 <th>Check-in Date</th>
                                 <th>Check-out Date</th>
                                 <th>Amount Paid</th>
@@ -29,6 +31,8 @@
                             @foreach ($bookings as $booking)
                                 <tr>
                                     <td>{{ $booking->id }}</td>
+                                    <td>{{ $booking->hostelRoom->room_number }}</td>
+                                    <td>{{ $booking->hostelRoom->hostelRoomType->room_type }}</td>
                                     <td>{{ $booking->check_in_date }}</td>
                                     <td>{{ $booking->check_out_date }}</td>
                                     <td>{{ $booking->amount_paid }}</td>
