@@ -35,7 +35,7 @@
                             </ul>
                         </li>
                     @else
-                        <li><a href="" class="fh5co-sub-ddown">Guest Actions</a>
+                        <li><a href="" class="fh5co-sub-ddown">Actions</a>
                             <ul class="fh5co-sub-menu">
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">

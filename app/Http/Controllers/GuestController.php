@@ -79,7 +79,7 @@ class GuestController extends Controller
         ]);
 
         // update the availability of the bed to "occupied"
-        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity - $bedSpace;
+        $hostelRoom->bed_space = $hostelRoom->bed_space - $bedSpace;
         if ($hostelRoom->bed_space == 0) {
             $hostelRoom->status = 'Unavailable';
         }
@@ -129,7 +129,7 @@ class GuestController extends Controller
         $guest_booking = GuestBooking::find($id);
         $hostelRoom = HostelRoom::where('room_number', $guest_booking->hostelRoom->room_number)
             ->first();
-        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity;
+        $hostelRoom->bed_space = $hostelRoom->bed_space + $guest_booking->bed_space;
         $hostelRoom->status = 'Available';
         $hostelRoom->save();
 

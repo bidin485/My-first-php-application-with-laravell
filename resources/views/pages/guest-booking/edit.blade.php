@@ -137,7 +137,7 @@
                                 <div class="mb-3 col-md-9">
                                     <label class="form-label">Amount Paid</label>
                                     <input type="number" name="amount_paid" id="amount_paid"
-                                        placeholder="max amount: {{ $hostel_booking->hostelRoom->hostelRoomType->room_price }}"
+                                        placeholder="max amount: {{ $booking->hostelRoom->hostelRoomType->room_price }}"
                                         class="form-control border border-2 p-2" oninput="calculateBalance()"
                                         value="{{ old('amount_paid', $booking->amount_paid) }}">
                                     @error('amount_paid')

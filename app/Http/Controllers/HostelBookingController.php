@@ -70,7 +70,7 @@ class HostelBookingController extends Controller
         ]);
 
 
-        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity - $bedSpace;
+        $hostelRoom->bed_space = $hostelRoom->bed_space - $bedSpace;
         if ($hostelRoom->bed_space == 0) {
             $hostelRoom->status = 'Unavailable';
         }
@@ -134,7 +134,7 @@ class HostelBookingController extends Controller
         $hostel_booking->hostel_room_id = $hostelRoom->id;
         $hostel_booking->save();
 
-        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity - $bedSpace;
+        $hostelRoom->bed_space = $hostelRoom->bed_space - $bedSpace;
         if ($hostelRoom->bed_space == 0) {
             $hostelRoom->status = 'Unavailable';
         } else {
@@ -153,7 +153,7 @@ class HostelBookingController extends Controller
         $hostel_booking = HostelBooking::find($id);
         $hostelRoom = HostelRoom::where('room_number', $hostel_booking->hostelRoom->room_number)
             ->first();
-        $hostelRoom->bed_space = $hostelRoom->hostelRoomType->room_capacity;
+        $hostelRoom->bed_space = $hostelRoom->bed_space + $hostel_booking->bed_space;
         $hostelRoom->status = 'Available';
         $hostelRoom->save();
 
@@ -185,5 +185,4 @@ class HostelBookingController extends Controller
 
         return view('pages.hostel_booking.select-room', compact('hostelRoomType', 'hostelRooms'));
     }
-
 }

@@ -126,7 +126,10 @@ class HostelRoomTypeController extends Controller
         if ($unassignedRoomType) {
             DB::table('hostel_rooms')
                 ->where('hostel_room_type_id', $hostelRoomType->id)
-                ->update(['hostel_room_type_id' => $unassignedRoomType->id]);
+                ->update([
+                    'hostel_room_type_id' => $unassignedRoomType->id,
+                    'status' => 'Unavailable'
+                ]);
         }
 
         HostelRoomType::destroy($id);
@@ -155,7 +158,7 @@ class HostelRoomTypeController extends Controller
         //Query database to find the id of the room type
         $roomType = DB::table('hostel_room_types')
             ->where('room_type', '=', "$request->room_type")
-            ->select('id')
+            ->select('*')
             ->first();
 
         HostelRoom::create([

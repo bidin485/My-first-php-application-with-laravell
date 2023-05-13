@@ -28,16 +28,16 @@
                                     <p class="text-2xl mb-0">{{ $expense->category }}</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between pt-2">
-                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Description</p>
-                                    <p class="text-2xl mb-0">{{ $expense->description }}</p>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pt-2">
                                     <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Amount Spent</p>
                                     <p class="text-2xl mb-0">{{ $expense->amount_spent }}</p>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between pt-2">
                                     <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Date</p>
                                     <p class="text-2xl mb-0">{{ $expense->date_of_expenditure }}</p>
+                                </div>
+                                <div class="d-flex flex-column align-items-start justify-content-between pt-2">
+                                    <p class="mb-0 text-bg-primary text-2xl font-weight-bolder">Description</p>
+                                    <p class="text-2xl mb-0">{{ $expense->description }}</p>
                                 </div>
                             </div>
                         </div>
