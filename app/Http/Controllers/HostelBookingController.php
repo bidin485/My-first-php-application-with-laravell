@@ -153,7 +153,7 @@ class HostelBookingController extends Controller
         $hostel_booking = HostelBooking::find($id);
         $hostelRoom = HostelRoom::where('room_number', $hostel_booking->hostelRoom->room_number)
             ->first();
-        $hostelRoom->bed_space = $hostelRoom->bed_space + $hostel_booking->bed_space;
+        $hostelRoom->bed_space = intval($hostelRoom->bed_space) + intval($hostel_booking->bed_space);
         $hostelRoom->status = 'Available';
         $hostelRoom->save();
 

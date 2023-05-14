@@ -129,7 +129,7 @@ class GuestController extends Controller
         $guest_booking = GuestBooking::find($id);
         $hostelRoom = HostelRoom::where('room_number', $guest_booking->hostelRoom->room_number)
             ->first();
-        $hostelRoom->bed_space = $hostelRoom->bed_space + $guest_booking->bed_space;
+        $hostelRoom->bed_space = intval($hostelRoom->bed_space) + intval($guest_booking->bed_space);
         $hostelRoom->status = 'Available';
         $hostelRoom->save();
 
